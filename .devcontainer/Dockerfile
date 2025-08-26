@@ -1,8 +1,9 @@
-# Use the most recent .NET LTS as the base image
-FROM mcr.microsoft.com/devcontainers/dotnet:1-8.0
+# Start with the latest tools
+#FROM mcr.microsoft.com/dotnet/nightly/sdk:10.0.100-preview.7
+FROM mcr.microsoft.com/devcontainers/dotnet:dev-10.0-preview
 
-# Install the current .NET STS release on top of that
+# Install the runtime from the most recent .NET LTS on top of that
+COPY --from=mcr.microsoft.com/dotnet/sdk:8.0 /usr/share/dotnet /usr/share/dotnet
+
+# Install the runtime from the current .NET STS release on top of that
 COPY --from=mcr.microsoft.com/dotnet/sdk:9.0 /usr/share/dotnet /usr/share/dotnet
-
-# Finally install the most recent .NET 10.0 preview from its SDK container
-COPY --from=mcr.microsoft.com/dotnet/nightly/sdk:10.0.100-preview.6 /usr/share/dotnet /usr/share/dotnet
